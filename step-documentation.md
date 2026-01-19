@@ -32,15 +32,9 @@ git push -u origin master
 ```
 
 ## Coding Prompts
-
 initialy using "Claude Opus 4.5" in "Planning mode"
 
 "n apps/game folder which is a frontend, can you make it that is uses Tensorflow and use hand gesture detection, The app checks if the user hand is rock, paper or scisor as we are creating "Rock, Paper and Scisor" game. Make sure the we use light version or setup to be a light version of the Tensorflow, i want the app the to be light as much as possible so removing any unused packages with tensor flow is a must. The front end uses a webcam and then use the image to detect the user hand gesture. Make it use Darkmode, display the content of the camera and then display the current hand gestrue, there is only 3 possible gesture. Make the porject modular meaning do not code everyting inside the app.tsx. So add components/Header.tsx, components/Welcome.tsx, Playing.tsx, In the Header, it contains the brand name: "SimpleMultiplayerJackEnPoy" with an brand icon. The app starts with "welcome screen". It looks like this: "Welcome player", "choose your side": "Team Read" or Team Blue which store the state of the player choosing. When the player choose, the Playing.tsx will be displayed which is contains the current content of the webcam, current detected hand gesture. There is also a panel which contains the button "Fight" which will send a post message to the backendexpress app, for now the route will just console log that it receive a request. Design the UI in modern looking and a properly fit for rock, paper scisor game. Use images or generate one as needed. Avoid using Border since it not looking good."
-
-I check the output and it works good. So I do commit to the github.
-
-## Next Step
-I notice that it takes some practice before it can detect user gesture. So I add a simple practice mode.
 
 "In the Playing.tsx, the user has to perform gesture checks before it can fight. So the user has
 do "Rock", "Paper" and "Scisor" at least 1 onces before fighting. So add a badge in the content screen saying "Before fighting, lets practice first" and then display the current hand gesture of the user. 
@@ -48,5 +42,6 @@ Then an image of the hand gesture will be displayed in the badge.  Each gesture 
 Will turn green if the user has performed the gesture checks until all of the gesture is green.
 Then the user can fight and the badge vanish in the view"
 
-## Ask the AI to fix the issue
 "Can you make it that the content is withing browser screen size?, meaning no scrolling all content fits in the window. Also the badge should be floating below the camera view."
+
+"Please make it that it does not detect the user faces if that is possible since it being detected as rock."

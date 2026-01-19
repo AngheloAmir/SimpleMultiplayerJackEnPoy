@@ -40,20 +40,25 @@ export async function detectGesture(video: HTMLVideoElement): Promise<GestureTyp
 
     const hand = hands[0];
     
+    // Filter out low confidence detections (often faces misidentified as hands)
+    if (hand.score && hand.score < 0.9) {
+      return null;
+    }
+    
     // Convert keypoints to the format expected by fingerpose
     // fingerpose expects [[x, y, z], ...] format
     const landmarks = hand.keypoints3D 
       ? hand.keypoints3D.map(kp => [kp.x, kp.y, kp.z || 0])
       : hand.keypoints.map(kp => [kp.x, kp.y, 0]);
 
-    const gesture = gestureEstimator.estimate(landmarks as [number, number, number][], 8.0);
+    const gesture = gestureEstimator.estimate(landmarks as [number, number, number][], 8.5);
 
     if (gesture.gestures.length > 0) {
       // Sort by confidence and get the highest
       const sortedGestures = gesture.gestures.sort((a, b) => b.score - a.score);
       const detectedGesture = sortedGestures[0];
       
-      if (detectedGesture.score > 7.0) {
+      if (detectedGesture.score > 9.0) {
         return detectedGesture.name as GestureType;
       }
     }
