@@ -49,3 +49,8 @@ Then the user can fight and the badge vanish in the view"
 "it seems like it fails on detecting more accurate, can you make it more accurate?"
 
 "in the badge can add a text telling that the user hand have to closer to the camera but not too close, just the hand should be visible in the camera view. Also, make it that the the detected hand does not changes until a new gesture is detected. this prevent flickering of the user hand gesture."
+
+"Can you make it that the detected hand gesture which is below the camera view and make it inside the camera view which appears in the bottom center of the camera view?"
+
+
+

@@ -206,17 +206,17 @@ const Playing: React.FC<PlayingProps> = ({ team, onBack }) => {
                 <p>{statusMessage}</p>
               </div>
             )}
-          </div>
-
-          {/* Gesture Display */}
-          <div className="gesture-display">
-            <div className={`gesture-card ${currentGesture ? 'detected' : ''}`}>
-              <span className="gesture-emoji-large">
-                {currentGesture ? gestureEmojis[currentGesture] : '🤚'}
-              </span>
-              <span className="gesture-label">
-                {currentGesture ? gestureNames[currentGesture] : 'No gesture detected'}
-              </span>
+            
+            {/* Gesture Display Overlay */}
+            <div className="gesture-display-overlay">
+              <div className={`gesture-card-overlay ${currentGesture ? 'detected' : ''}`}>
+                <span className="gesture-emoji-large">
+                  {currentGesture ? gestureEmojis[currentGesture] : '🤚'}
+                </span>
+                <span className="gesture-label-overlay">
+                  {currentGesture ? gestureNames[currentGesture] : 'No gesture'}
+                </span>
+              </div>
             </div>
           </div>
         </div>
