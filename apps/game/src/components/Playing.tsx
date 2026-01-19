@@ -88,7 +88,9 @@ const Playing: React.FC<PlayingProps> = ({ team, onBack }) => {
   const detectLoop = useCallback(async () => {
     if (videoRef.current && videoRef.current.readyState === 4) {
       const gesture = await detectGesture(videoRef.current);
-      setCurrentGesture(gesture);
+      if (gesture) {
+        setCurrentGesture(gesture);
+      }
     }
     animationFrameRef.current = requestAnimationFrame(detectLoop);
   }, []);
@@ -156,7 +158,9 @@ const Playing: React.FC<PlayingProps> = ({ team, onBack }) => {
           {!isPracticeComplete && (
             <div className="practice-badge">
               <h3 className="practice-title">🎯 Before fighting, let's practice first!</h3>
-              <p className="practice-subtitle">Show each gesture at least once</p>
+              <p className="practice-subtitle">
+                Keep your hand visible and close to camera (but not too close)
+              </p>
               
               <div className="practice-gestures">
                 <div className={`practice-item ${practiceCompleted.rock ? 'completed' : ''}`}>

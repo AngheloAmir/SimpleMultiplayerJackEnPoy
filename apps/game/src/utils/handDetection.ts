@@ -41,7 +41,7 @@ export async function detectGesture(video: HTMLVideoElement): Promise<GestureTyp
     const hand = hands[0];
     
     // Filter out low confidence detections (often faces misidentified as hands)
-    if (hand.score && hand.score < 0.9) {
+    if (hand.score && hand.score < 0.8) {
       return null;
     }
     
@@ -58,7 +58,7 @@ export async function detectGesture(video: HTMLVideoElement): Promise<GestureTyp
       const sortedGestures = gesture.gestures.sort((a, b) => b.score - a.score);
       const detectedGesture = sortedGestures[0];
       
-      if (detectedGesture.score > 9.0) {
+      if (detectedGesture.score > 8.5) {
         return detectedGesture.name as GestureType;
       }
     }

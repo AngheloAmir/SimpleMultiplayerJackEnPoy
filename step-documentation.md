@@ -45,3 +45,7 @@ Then the user can fight and the badge vanish in the view"
 "Can you make it that the content is withing browser screen size?, meaning no scrolling all content fits in the window. Also the badge should be floating below the camera view."
 
 "Please make it that it does not detect the user faces if that is possible since it being detected as rock."
+
+"it seems like it fails on detecting more accurate, can you make it more accurate?"
+
+"in the badge can add a text telling that the user hand have to closer to the camera but not too close, just the hand should be visible in the camera view. Also, make it that the the detected hand does not changes until a new gesture is detected. this prevent flickering of the user hand gesture."
