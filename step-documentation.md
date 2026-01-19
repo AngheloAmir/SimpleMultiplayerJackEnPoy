@@ -116,3 +116,8 @@ Vercel is working correctly.
     If you are a visitor, contact the website owner or try again later.
     If you are the owner, learn how to fix the error and check the logs.  how to fix this?
 "
+
+## After adjusting the Vercel environment variables
+After visiting the deployed backend, i need to ask the ai to adjust the frontend to use the url "https://simple-multiplayer-jack-en-poy-backendexpress-g6sex8t9t.vercel.app/"
+
+"Please adjust the frontend to use the url "https://simple-multiplayer-jack-en-poy-backendexpress-g6sex8t9t.vercel.app/""
