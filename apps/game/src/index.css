@@ -31,19 +31,20 @@ body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   background: var(--bg-primary);
   color: var(--text-primary);
-  min-height: 100vh;
-  overflow-x: hidden;
+  height: 100vh;
+  overflow: hidden;
 }
 
 /* App Layout */
 .app {
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   background: 
     radial-gradient(ellipse at 20% 20%, rgba(168, 85, 247, 0.15) 0%, transparent 50%),
     radial-gradient(ellipse at 80% 80%, rgba(6, 182, 212, 0.15) 0%, transparent 50%),
     var(--bg-primary);
+  overflow: hidden;
 }
 
 .main-content {
@@ -51,14 +52,17 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
+  padding: 1rem;
+  overflow: hidden;
+  height: 100%;
 }
 
 /* Header Styles */
 .header {
-  padding: 1rem 2rem;
+  padding: 0.75rem 2rem;
   background: var(--glass-bg);
   backdrop-filter: blur(10px);
+  flex-shrink: 0;
 }
 
 .header-content {
@@ -76,14 +80,14 @@ body {
 }
 
 .brand-icon .icon {
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
 }
 
 .hand-icons {
   display: flex;
   gap: 0.25rem;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
 }
 
 .gesture-emoji {
@@ -104,7 +108,7 @@ body {
 }
 
 .brand-name {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 700;
   display: flex;
   flex-wrap: wrap;
@@ -126,23 +130,25 @@ body {
 .welcome-container {
   width: 100%;
   max-width: 600px;
+  max-height: 100%;
+  overflow-y: auto;
 }
 
 .welcome-card {
   background: var(--glass-bg);
   backdrop-filter: blur(20px);
-  padding: 3rem;
+  padding: 2rem;
   border-radius: 24px;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
 }
 
 .welcome-header {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .welcome-title {
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 800;
   background: var(--gradient-primary);
   -webkit-background-clip: text;
@@ -153,18 +159,18 @@ body {
 
 .welcome-subtitle {
   color: var(--text-secondary);
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 
 .team-selection {
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .choose-text {
   text-align: center;
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   color: var(--text-secondary);
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .team-buttons {
@@ -176,8 +182,8 @@ body {
 
 .team-button {
   position: relative;
-  padding: 1.5rem 2rem;
-  font-size: 1.1rem;
+  padding: 1.25rem 1.5rem;
+  font-size: 1rem;
   font-weight: 600;
   color: white;
   background: var(--bg-tertiary);
@@ -190,7 +196,7 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
-  min-width: 140px;
+  min-width: 120px;
 }
 
 .team-button:hover {
@@ -225,7 +231,7 @@ body {
 }
 
 .team-icon {
-  font-size: 2rem;
+  font-size: 1.5rem;
 }
 
 .team-name {
@@ -234,7 +240,7 @@ body {
 }
 
 .vs-divider {
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   font-weight: 700;
   color: var(--text-secondary);
   padding: 0 0.5rem;
@@ -242,36 +248,45 @@ body {
 
 .game-hints {
   text-align: center;
-  padding-top: 1.5rem;
+  padding-top: 1rem;
   color: var(--text-secondary);
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.4rem;
 }
 
 /* Playing Screen */
 .playing-container {
   width: 100%;
   max-width: 1200px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .playing-layout {
   display: grid;
   grid-template-columns: 1fr 300px;
-  gap: 2rem;
+  gap: 1.5rem;
+  height: 100%;
+  overflow: hidden;
 }
 
 @media (max-width: 900px) {
   .playing-layout {
     grid-template-columns: 1fr;
+    grid-template-rows: 1fr auto;
   }
 }
 
 .game-area {
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;
+  height: 100%;
+  justify-content: center;
 }
 
 .webcam-container {
@@ -279,15 +294,20 @@ body {
   background: var(--bg-secondary);
   border-radius: 20px;
   overflow: hidden;
-  aspect-ratio: 4/3;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0; /* Important for flex child scaling */
 }
 
 .webcam-video {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain; /* Ensure video fits within container */
   transform: scaleX(-1);
+  background: black;
 }
 
 .loading-overlay {
@@ -300,6 +320,7 @@ body {
   background: rgba(0, 0, 0, 0.8);
   color: var(--text-secondary);
   gap: 1rem;
+  z-index: 20;
 }
 
 .loading-spinner {
@@ -318,12 +339,14 @@ body {
 .gesture-display {
   display: flex;
   justify-content: center;
+  flex-shrink: 0;
+  height: 80px;
 }
 
 .gesture-card {
   background: var(--glass-bg);
   backdrop-filter: blur(10px);
-  padding: 1.5rem 3rem;
+  padding: 0.5rem 2rem;
   border-radius: 16px;
   display: flex;
   align-items: center;
@@ -336,11 +359,11 @@ body {
 }
 
 .gesture-emoji-large {
-  font-size: 3rem;
+  font-size: 2.5rem;
 }
 
 .gesture-label {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 600;
 }
 
@@ -348,17 +371,21 @@ body {
 .side-panel {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;
+  height: 100%;
+  overflow-y: auto;
+  padding-right: 5px; /* Space for scrollbar */
 }
 
 .team-badge {
   background: var(--glass-bg);
   backdrop-filter: blur(10px);
-  padding: 1.25rem;
+  padding: 1rem;
   border-radius: 16px;
   display: flex;
   align-items: center;
   gap: 1rem;
+  flex-shrink: 0;
 }
 
 .team-badge.red {
@@ -374,33 +401,35 @@ body {
 }
 
 .team-label {
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   font-weight: 600;
 }
 
 .status-area {
   background: var(--glass-bg);
   backdrop-filter: blur(10px);
-  padding: 1rem;
+  padding: 0.75rem;
   border-radius: 12px;
+  flex-shrink: 0;
 }
 
 .status-message {
   color: var(--text-secondary);
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   text-align: center;
 }
 
 .action-buttons {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.75rem;
+  flex-shrink: 0;
 }
 
 .fight-button {
   position: relative;
-  padding: 1.25rem;
-  font-size: 1.5rem;
+  padding: 1rem;
+  font-size: 1.25rem;
   font-weight: 800;
   color: white;
   background: var(--gradient-primary);
@@ -435,8 +464,8 @@ body {
 }
 
 .back-button {
-  padding: 1rem;
-  font-size: 1rem;
+  padding: 0.75rem;
+  font-size: 0.9rem;
   color: var(--text-secondary);
   background: var(--glass-bg);
   border: none;
@@ -453,14 +482,17 @@ body {
 .gesture-guide {
   background: var(--glass-bg);
   backdrop-filter: blur(10px);
-  padding: 1.25rem;
+  padding: 1rem;
   border-radius: 16px;
+  flex: 1; /* Fill remaining space */
+  min-height: 0;
+  overflow-y: auto;
 }
 
 .gesture-guide h4 {
   color: var(--text-secondary);
-  font-size: 0.9rem;
-  margin-bottom: 1rem;
+  font-size: 0.85rem;
+  margin-bottom: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
@@ -468,7 +500,7 @@ body {
 .guide-items {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.5rem;
 }
 
 .guide-item {
@@ -488,4 +520,150 @@ body {
 
 .guide-item span {
   font-size: 1.25rem;
+}
+
+/* Practice Badge Styles */
+.practice-badge {
+  position: absolute;
+  bottom: 100px; /* Above the gesture display */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  width: 90%;
+  max-width: 500px;
+  
+  background: rgba(15, 15, 26, 0.9); /* More opaque background for readability */
+  backdrop-filter: blur(20px);
+  padding: 1rem;
+  border-radius: 20px;
+  text-align: center;
+  animation: slideUp 0.5s ease-out;
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 20px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+.practice-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.practice-subtitle {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+}
+
+.practice-gestures {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.practice-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.5rem;
+  border-radius: 12px;
+  background: var(--bg-tertiary);
+  transition: all 0.3s ease;
+  opacity: 0.5;
+}
+
+.practice-item.completed {
+  opacity: 1;
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.3) 0%, rgba(16, 185, 129, 0.3) 100%);
+  box-shadow: 0 0 20px rgba(34, 197, 94, 0.3);
+}
+
+.practice-image {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.practice-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.practice-item.completed .practice-label {
+  color: #22c55e;
+}
+
+.practice-check {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(135deg, #22c55e 0%, #10b981 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: white;
+  animation: popIn 0.3s ease-out;
+}
+
+@keyframes popIn {
+  0% { transform: scale(0); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+.practice-current {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  background: var(--bg-secondary);
+  border-radius: 12px;
+}
+
+.current-label {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+.current-gesture {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--accent-purple);
+}
+
+@media (max-width: 600px) {
+  .practice-gestures {
+    gap: 0.75rem;
+  }
+  
+  .practice-item {
+    padding: 0.5rem;
+  }
+  
+  .practice-image {
+    width: 40px;
+    height: 40px;
+  }
 }

@@ -20,6 +20,18 @@ const gestureNames: Record<string, string> = {
   scissors: 'Scissors',
 };
 
+const gestureImages: Record<string, string> = {
+  rock: '/rock.png',
+  paper: '/paper.png',
+  scissors: '/scissors.png',
+};
+
+interface PracticeState {
+  rock: boolean;
+  paper: boolean;
+  scissors: boolean;
+}
+
 const Playing: React.FC<PlayingProps> = ({ team, onBack }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -27,6 +39,25 @@ const Playing: React.FC<PlayingProps> = ({ team, onBack }) => {
   const [isFighting, setIsFighting] = useState(false);
   const [statusMessage, setStatusMessage] = useState('Initializing camera...');
   const animationFrameRef = useRef<number | undefined>(undefined);
+  
+  // Practice mode state
+  const [practiceCompleted, setPracticeCompleted] = useState<PracticeState>({
+    rock: false,
+    paper: false,
+    scissors: false,
+  });
+
+  const isPracticeComplete = practiceCompleted.rock && practiceCompleted.paper && practiceCompleted.scissors;
+
+  // Update practice state when gesture is detected
+  useEffect(() => {
+    if (currentGesture && !isPracticeComplete) {
+      setPracticeCompleted(prev => ({
+        ...prev,
+        [currentGesture]: true,
+      }));
+    }
+  }, [currentGesture, isPracticeComplete]);
 
   const startCamera = useCallback(async () => {
     try {
@@ -95,6 +126,11 @@ const Playing: React.FC<PlayingProps> = ({ team, onBack }) => {
       return;
     }
 
+    if (!isPracticeComplete) {
+      setStatusMessage('Complete the practice first!');
+      return;
+    }
+
     setIsFighting(true);
     setStatusMessage('Fighting...');
 
@@ -116,6 +152,41 @@ const Playing: React.FC<PlayingProps> = ({ team, onBack }) => {
       <div className="playing-layout">
         {/* Main Game Area */}
         <div className="game-area">
+          {/* Practice Badge - Only show if practice not complete */}
+          {!isPracticeComplete && (
+            <div className="practice-badge">
+              <h3 className="practice-title">🎯 Before fighting, let's practice first!</h3>
+              <p className="practice-subtitle">Show each gesture at least once</p>
+              
+              <div className="practice-gestures">
+                <div className={`practice-item ${practiceCompleted.rock ? 'completed' : ''}`}>
+                  <img src={gestureImages.rock} alt="Rock" className="practice-image" />
+                  <span className="practice-label">Rock</span>
+                  {practiceCompleted.rock && <span className="practice-check">✓</span>}
+                </div>
+                
+                <div className={`practice-item ${practiceCompleted.paper ? 'completed' : ''}`}>
+                  <img src={gestureImages.paper} alt="Paper" className="practice-image" />
+                  <span className="practice-label">Paper</span>
+                  {practiceCompleted.paper && <span className="practice-check">✓</span>}
+                </div>
+                
+                <div className={`practice-item ${practiceCompleted.scissors ? 'completed' : ''}`}>
+                  <img src={gestureImages.scissors} alt="Scissors" className="practice-image" />
+                  <span className="practice-label">Scissors</span>
+                  {practiceCompleted.scissors && <span className="practice-check">✓</span>}
+                </div>
+              </div>
+              
+              <div className="practice-current">
+                <span className="current-label">Current gesture:</span>
+                <span className="current-gesture">
+                  {currentGesture ? `${gestureEmojis[currentGesture]} ${gestureNames[currentGesture]}` : '—'}
+                </span>
+              </div>
+            </div>
+          )}
+
           {/* Webcam Display */}
           <div className="webcam-container">
             <video
@@ -161,9 +232,11 @@ const Playing: React.FC<PlayingProps> = ({ team, onBack }) => {
             <button
               className="fight-button"
               onClick={handleFight}
-              disabled={!currentGesture || isFighting || isLoading}
+              disabled={!currentGesture || isFighting || isLoading || !isPracticeComplete}
             >
-              <span className="fight-text">{isFighting ? 'Fighting...' : 'FIGHT!'}</span>
+              <span className="fight-text">
+                {!isPracticeComplete ? 'Complete Practice First' : isFighting ? 'Fighting...' : 'FIGHT!'}
+              </span>
               <div className="fight-glow"></div>
             </button>
 

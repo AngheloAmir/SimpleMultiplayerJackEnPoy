@@ -40,3 +40,13 @@ initialy using "Claude Opus 4.5" in "Planning mode"
 I check the output and it works good. So I do commit to the github.
 
 ## Next Step
+I notice that it takes some practice before it can detect user gesture. So I add a simple practice mode.
+
+"In the Playing.tsx, the user has to perform gesture checks before it can fight. So the user has
+do "Rock", "Paper" and "Scisor" at least 1 onces before fighting. So add a badge in the content screen saying "Before fighting, lets practice first" and then display the current hand gesture of the user. 
+Then an image of the hand gesture will be displayed in the badge.  Each gesture has its own image.
+Will turn green if the user has performed the gesture checks until all of the gesture is green.
+Then the user can fight and the badge vanish in the view"
+
+## Ask the AI to fix the issue
+"Can you make it that the content is withing browser screen size?, meaning no scrolling all content fits in the window. Also the badge should be floating below the camera view."
