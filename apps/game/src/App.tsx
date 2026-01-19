@@ -23,7 +23,7 @@ function App() {
 
   return (
     <div className="app">
-      <Header />
+      <Header team={selectedTeam} />
       <main className="main-content">
         {screen === 'welcome' && (
           <Welcome onTeamSelect={handleTeamSelect} />

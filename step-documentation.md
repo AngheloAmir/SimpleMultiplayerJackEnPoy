@@ -52,5 +52,16 @@ Then the user can fight and the badge vanish in the view"
 
 "Can you make it that the detected hand gesture which is below the camera view and make it inside the camera view which appears in the bottom center of the camera view?"
 
+"Now we will be doing mobile responsive design, when viewing in mobile make the header to show only user team name, dont show the icon. This is how the mobile view should look like:
+[Header - team name]
+[
+    [Camera View]
+    [Gesture Display]
+]
+[
+    [Fight button] 
+    [Back button] 
+]
+ "
 
-
+"make the welcome screen mobile frendly too"
