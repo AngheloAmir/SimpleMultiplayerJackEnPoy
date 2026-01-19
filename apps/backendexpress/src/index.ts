@@ -20,6 +20,11 @@ app.get("/", (req: Request, res: Response) => {
     res.sendFile(path.join(__dirname, "../public/index.html"));
 });
 
-app.listen(port, () => {
-    console.log("Server running at http://localhost:" + port);
-});
+// Only start server if not running on Vercel
+if (!process.env.VERCEL) {
+    app.listen(port, () => {
+        console.log("Server running at http://localhost:" + port);
+    });
+}
+
+export default app;

@@ -32,9 +32,10 @@ git push -u origin master
 ```
 
 ## Coding Prompts
-initialy using "Claude Opus 4.5" in "Planning mode"
+initialy using "Claude Opus 4.5" in "Planning mode" and then switch to Google Gemini 3 Pro (High) and in "Fast mode".
 
-"n apps/game folder which is a frontend, can you make it that is uses Tensorflow and use hand gesture detection, The app checks if the user hand is rock, paper or scisor as we are creating "Rock, Paper and Scisor" game. Make sure the we use light version or setup to be a light version of the Tensorflow, i want the app the to be light as much as possible so removing any unused packages with tensor flow is a must. The front end uses a webcam and then use the image to detect the user hand gesture. Make it use Darkmode, display the content of the camera and then display the current hand gestrue, there is only 3 possible gesture. Make the porject modular meaning do not code everyting inside the app.tsx. So add components/Header.tsx, components/Welcome.tsx, Playing.tsx, In the Header, it contains the brand name: "SimpleMultiplayerJackEnPoy" with an brand icon. The app starts with "welcome screen". It looks like this: "Welcome player", "choose your side": "Team Read" or Team Blue which store the state of the player choosing. When the player choose, the Playing.tsx will be displayed which is contains the current content of the webcam, current detected hand gesture. There is also a panel which contains the button "Fight" which will send a post message to the backendexpress app, for now the route will just console log that it receive a request. Design the UI in modern looking and a properly fit for rock, paper scisor game. Use images or generate one as needed. Avoid using Border since it not looking good."
+## PROMPTS:
+"in apps/game folder which is a frontend, can you make it that is uses Tensorflow and use hand gesture detection, The app checks if the user hand is rock, paper or scisor as we are creating "Rock, Paper and Scisor" game. Make sure the we use light version or setup to be a light version of the Tensorflow, i want the app the to be light as much as possible so removing any unused packages with tensor flow is a must. The front end uses a webcam and then use the image to detect the user hand gesture. Make it use Darkmode, display the content of the camera and then display the current hand gestrue, there is only 3 possible gesture. Make the porject modular meaning do not code everyting inside the app.tsx. So add components/Header.tsx, components/Welcome.tsx, Playing.tsx, In the Header, it contains the brand name: "SimpleMultiplayerJackEnPoy" with an brand icon. The app starts with "welcome screen". It looks like this: "Welcome player", "choose your side": "Team Read" or Team Blue which store the state of the player choosing. When the player choose, the Playing.tsx will be displayed which is contains the current content of the webcam, current detected hand gesture. There is also a panel which contains the button "Fight" which will send a post message to the backendexpress app, for now the route will just console log that it receive a request. Design the UI in modern looking and a properly fit for rock, paper scisor game. Use images or generate one as needed. Avoid using Border since it not looking good."
 
 "In the Playing.tsx, the user has to perform gesture checks before it can fight. So the user has
 do "Rock", "Paper" and "Scisor" at least 1 onces before fighting. So add a badge in the content screen saying "Before fighting, lets practice first" and then display the current hand gesture of the user. 
@@ -95,3 +96,7 @@ this will return if the user "Won", "Lost", "Draw" and display it in the fronten
 ""
 
 "can you make it that the result is displayed in the center of the screen and make it with animation. Each has its own animaton like Winning will show starts, loosing will show sad face. and draw just use an icon for a draw"
+
+## publishing
+
+"Check the backend and make it can be publish to vercel, do adjustment as necessary"
