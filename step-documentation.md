@@ -52,6 +52,7 @@ Then the user can fight and the badge vanish in the view"
 
 "Can you make it that the detected hand gesture which is below the camera view and make it inside the camera view which appears in the bottom center of the camera view?"
 
+## Mobile Responsive Design prompts
 "Now we will be doing mobile responsive design, when viewing in mobile make the header to show only user team name, dont show the icon. This is how the mobile view should look like:
 [Header - team name]
 [
@@ -65,3 +66,7 @@ Then the user can fight and the badge vanish in the view"
  "
 
 "make the welcome screen mobile frendly too"
+
+"in the mobile view in the welcome screen, make the header showing only JackEnPoy and dont show the icon also dont show the "VS" word just two buttons in flex column layout. Remove the card while in mobile view."
+
+"in mobile view, make everything dont scroll like by adding scroll hidden"
