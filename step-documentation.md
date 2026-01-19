@@ -102,3 +102,17 @@ this will return if the user "Won", "Lost", "Draw" and display it in the fronten
 "Check the backend and make it can be publish to vercel, do adjustment as necessary"
 
 "add hello world when visiting the root url of the backendexpress"
+
+## Checking the publish project:
+
+"https://simple-multiplayer-jack-en-poy-git-c07a71-angheloamirs-projects.vercel.app/ so it produce This Serverless Function has crashed.
+
+Your connection is working correctly.
+
+Vercel is working correctly.
+
+500: INTERNAL_SERVER_ERROR Code: FUNCTION_INVOCATION_FAILED ID: hkg1::pp4lm-1768840558326-e82c85374427
+
+    If you are a visitor, contact the website owner or try again later.
+    If you are the owner, learn how to fix the error and check the logs.  how to fix this?
+"
