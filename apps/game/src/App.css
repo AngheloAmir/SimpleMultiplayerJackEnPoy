@@ -1,0 +1,54 @@
+/* App.css - Additional component-specific styles */
+
+/* Animations */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.welcome-card {
+  animation: slideIn 0.5s ease-out;
+}
+
+.playing-container {
+  animation: slideIn 0.5s ease-out;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .team-buttons {
+    flex-direction: column;
+  }
+  
+  .vs-divider {
+    transform: rotate(90deg);
+    padding: 1rem 0;
+  }
+  
+  .welcome-card {
+    padding: 2rem 1.5rem;
+  }
+  
+  .welcome-title {
+    font-size: 2rem;
+  }
+  
+  .brand-name {
+    font-size: 1.2rem;
+  }
+}

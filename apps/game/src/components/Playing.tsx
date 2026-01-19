@@ -1,0 +1,195 @@
+import React, { useRef, useEffect, useState, useCallback } from 'react';
+import { initializeHandDetector, detectGesture, disposeDetector } from '../utils/handDetection';
+import { sendFight } from '../utils/api';
+import type { GestureType } from '../utils/gestures';
+
+interface PlayingProps {
+  team: 'red' | 'blue';
+  onBack: () => void;
+}
+
+const gestureEmojis: Record<string, string> = {
+  rock: '✊',
+  paper: '✋',
+  scissors: '✌️',
+};
+
+const gestureNames: Record<string, string> = {
+  rock: 'Rock',
+  paper: 'Paper',
+  scissors: 'Scissors',
+};
+
+const Playing: React.FC<PlayingProps> = ({ team, onBack }) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [currentGesture, setCurrentGesture] = useState<GestureType>(null);
+  const [isFighting, setIsFighting] = useState(false);
+  const [statusMessage, setStatusMessage] = useState('Initializing camera...');
+  const animationFrameRef = useRef<number | undefined>(undefined);
+
+  const startCamera = useCallback(async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: {
+          width: { ideal: 640 },
+          height: { ideal: 480 },
+          facingMode: 'user',
+        },
+      });
+
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream;
+        await videoRef.current.play();
+      }
+
+      setStatusMessage('Loading hand detection model...');
+      await initializeHandDetector();
+      setStatusMessage('Ready! Show your hand gesture');
+      setIsLoading(false);
+    } catch (error) {
+      console.error('Error starting camera:', error);
+      setStatusMessage('Failed to access camera. Please allow camera permissions.');
+      setIsLoading(false);
+    }
+  }, []);
+
+  const detectLoop = useCallback(async () => {
+    if (videoRef.current && videoRef.current.readyState === 4) {
+      const gesture = await detectGesture(videoRef.current);
+      setCurrentGesture(gesture);
+    }
+    animationFrameRef.current = requestAnimationFrame(detectLoop);
+  }, []);
+
+  useEffect(() => {
+    startCamera();
+
+    return () => {
+      // Cleanup
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+      disposeDetector();
+      if (videoRef.current?.srcObject) {
+        const stream = videoRef.current.srcObject as MediaStream;
+        stream.getTracks().forEach(track => track.stop());
+      }
+    };
+  }, [startCamera]);
+
+  useEffect(() => {
+    if (!isLoading) {
+      detectLoop();
+    }
+    return () => {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+    };
+  }, [isLoading, detectLoop]);
+
+  const handleFight = async () => {
+    if (!currentGesture) {
+      setStatusMessage('Show a gesture first!');
+      return;
+    }
+
+    setIsFighting(true);
+    setStatusMessage('Fighting...');
+
+    try {
+      const response = await sendFight({
+        team,
+        gesture: currentGesture,
+      });
+      setStatusMessage(response.message || 'Fight sent successfully!');
+    } catch (error) {
+      setStatusMessage('Failed to send fight request');
+    } finally {
+      setIsFighting(false);
+    }
+  };
+
+  return (
+    <div className="playing-container">
+      <div className="playing-layout">
+        {/* Main Game Area */}
+        <div className="game-area">
+          {/* Webcam Display */}
+          <div className="webcam-container">
+            <video
+              ref={videoRef}
+              autoPlay
+              playsInline
+              muted
+              className="webcam-video"
+            />
+            {isLoading && (
+              <div className="loading-overlay">
+                <div className="loading-spinner"></div>
+                <p>{statusMessage}</p>
+              </div>
+            )}
+          </div>
+
+          {/* Gesture Display */}
+          <div className="gesture-display">
+            <div className={`gesture-card ${currentGesture ? 'detected' : ''}`}>
+              <span className="gesture-emoji-large">
+                {currentGesture ? gestureEmojis[currentGesture] : '🤚'}
+              </span>
+              <span className="gesture-label">
+                {currentGesture ? gestureNames[currentGesture] : 'No gesture detected'}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Side Panel */}
+        <div className="side-panel">
+          <div className={`team-badge ${team}`}>
+            <span className="team-emoji">{team === 'red' ? '🔴' : '🔵'}</span>
+            <span className="team-label">Team {team === 'red' ? 'Red' : 'Blue'}</span>
+          </div>
+
+          <div className="status-area">
+            <p className="status-message">{statusMessage}</p>
+          </div>
+
+          <div className="action-buttons">
+            <button
+              className="fight-button"
+              onClick={handleFight}
+              disabled={!currentGesture || isFighting || isLoading}
+            >
+              <span className="fight-text">{isFighting ? 'Fighting...' : 'FIGHT!'}</span>
+              <div className="fight-glow"></div>
+            </button>
+
+            <button className="back-button" onClick={onBack}>
+              ← Back to Menu
+            </button>
+          </div>
+
+          <div className="gesture-guide">
+            <h4>Gestures</h4>
+            <div className="guide-items">
+              <div className={`guide-item ${currentGesture === 'rock' ? 'active' : ''}`}>
+                <span>✊</span> Rock
+              </div>
+              <div className={`guide-item ${currentGesture === 'paper' ? 'active' : ''}`}>
+                <span>✋</span> Paper
+              </div>
+              <div className={`guide-item ${currentGesture === 'scissors' ? 'active' : ''}`}>
+                <span>✌️</span> Scissors
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Playing;
