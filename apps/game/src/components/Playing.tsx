@@ -38,6 +38,8 @@ const Playing: React.FC<PlayingProps> = ({ team, onBack }) => {
   const [currentGesture, setCurrentGesture] = useState<GestureType>(null);
   const [isFighting, setIsFighting] = useState(false);
   const [statusMessage, setStatusMessage] = useState('Initializing camera...');
+  const [gameResult, setGameResult] = useState<'Won' | 'Lost' | 'Draw' | null>(null);
+  const [opponentGesture, setOpponentGesture] = useState<string | null>(null);
   const animationFrameRef = useRef<number | undefined>(undefined);
   
   // Practice mode state
@@ -142,6 +144,11 @@ const Playing: React.FC<PlayingProps> = ({ team, onBack }) => {
         gesture: currentGesture,
       });
       setStatusMessage(response.message || 'Fight sent successfully!');
+      
+      if (response.result) {
+        setGameResult(response.result);
+        setOpponentGesture(response.opponentGesture || null);
+      }
     } catch (error) {
       setStatusMessage('Failed to send fight request');
     } finally {
@@ -265,6 +272,25 @@ const Playing: React.FC<PlayingProps> = ({ team, onBack }) => {
           </div>
         </div>
       </div>
+      {/* Game Result Overlay */}
+      {gameResult && (
+        <div className="result-overlay" onClick={() => setGameResult(null)}>
+           <div className={`result-content result-${gameResult.toLowerCase()}`}>
+              <div className="result-animation">
+                {gameResult === 'Won' && '⭐⭐⭐'}
+                {gameResult === 'Lost' && '😢'}
+                {gameResult === 'Draw' && '🤝'}
+              </div>
+              <h2 className="result-title">You {gameResult}!</h2>
+              {opponentGesture && (
+                <p className="result-subtitle">
+                   Opponent chose <span className="opponent-move">{opponentGesture}</span>
+                </p>
+              )}
+              <p className="click-to-close">Tap to continue</p>
+           </div>
+        </div>
+      )}
     </div>
   );
 };

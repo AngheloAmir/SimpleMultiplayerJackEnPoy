@@ -70,3 +70,28 @@ Then the user can fight and the badge vanish in the view"
 "in the mobile view in the welcome screen, make the header showing only JackEnPoy and dont show the icon also dont show the "VS" word just two buttons in flex column layout. Remove the card while in mobile view."
 
 "in mobile view, make everything dont scroll like by adding scroll hidden"
+
+## Making the backend functional with Database
+
+"now create an .env file and we are going to use Supabase as our database
+ this the anon key="****" and the url="****"
+
+Now this is the table format:
+CREATE TABLE playerteam (
+    id int PRIMARY KEY, 
+    team_name text NOT NULL,
+    gesture text NOT NULL
+);
+INSERT INTO playerteam (id, team_name, gesture)
+VALUES 
+    (1, 'Team Red',  'Rock'),
+    (2, 'Team Blue', 'Paper');
+
+When the user clicks the fight button it will send the ff data:
+userteam and current hand gesture
+
+The backend update the content based on the user team, then it will compare to the other team gesture.
+this will return if the user "Won", "Lost", "Draw" and display it in the frontend.
+""
+
+"can you make it that the result is displayed in the center of the screen and make it with animation. Each has its own animaton like Winning will show starts, loosing will show sad face. and draw just use an icon for a draw"

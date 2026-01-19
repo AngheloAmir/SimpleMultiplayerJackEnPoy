@@ -8,6 +8,8 @@ export interface FightRequest {
 export interface FightResponse {
   success: boolean;
   message: string;
+  result?: 'Won' | 'Lost' | 'Draw';
+  opponentGesture?: string;
 }
 
 export async function sendFight(data: FightRequest): Promise<FightResponse> {
