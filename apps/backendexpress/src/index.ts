@@ -17,7 +17,7 @@ app.use("/hello", helloRouter);
 app.use("/fight", fightRouter);
 
 app.get("/", (req: Request, res: Response) => {
-    res.sendFile(path.join(__dirname, "../public/index.html"));
+    res.send("Hello World");
 });
 
 // Only start server if not running on Vercel
