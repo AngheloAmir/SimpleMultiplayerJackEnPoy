@@ -14,7 +14,9 @@ export interface FightResponse {
 
 export async function sendFight(data: FightRequest): Promise<FightResponse> {
   try {
-    const response = await fetch(`${API_BASE_URL}/fight`, {
+    // Normalize URL to prevent double slashes
+    const baseUrl = API_BASE_URL.replace(/\/+$/, ''); // Remove trailing slashes
+    const response = await fetch(`${baseUrl}/fight`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
