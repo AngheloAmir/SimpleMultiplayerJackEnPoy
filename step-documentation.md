@@ -118,6 +118,11 @@ Vercel is working correctly.
 "
 
 ## After adjusting the Vercel environment variables
+
 After visiting the deployed backend, i need to ask the ai to adjust the frontend to use the url "https://simple-multiplayer-jack-en-poy-backendexpress-g6sex8t9t.vercel.app/"
 
 "Please adjust the frontend to use the url "https://simple-multiplayer-jack-en-poy-backendexpress-g6sex8t9t.vercel.app/""
+
+## After confirming the app is working in Vercel
+
+"Add Readme.md file in the root folder and add information as needed."
